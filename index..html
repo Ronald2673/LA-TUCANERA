@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Tucanera - Artesanía Amazónica</title>
+    <style>
+        :root {
+            --verde-naturaleza: #2E5A27;
+            --verde-claro: #4A7A3E;
+            --marron-fibra: #8B5A2B;
+            --marron-claro: #A67B5B;
+            --beige-artesanal: #F3E5AB;
+            --beige-fondo: #FAFAF0;
+            --naranja-tropical: #E76F51;
+            --amarillo-tropical: #F4A261;
+            --texto-principal: #333333;
+            --texto-secundario: #666666;
+            --blanco: #FFFFFF;
+            --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transicion: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--beige-fondo);
+            color: var(--texto-principal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utilidades */
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transicion);
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--verde-naturaleza);
+            color: var(--blanco);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--verde-claro);
+        }
+
+        .btn-secondary {
+            background-color: var(--marron-fibra);
+            color: var(--blanco);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--marron-claro);
+        }
+
+        .btn-accent {
+            background-color: var(--naranja-tropical);
+            color: var(--blanco);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--amarillo-tropical);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--verde-naturaleza);
+            color: var(--verde-naturaleza);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--verde-naturaleza);
+            color: var(--blanco);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .view {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        .view.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tipografía */
+        h1, h2, h3 {
+            color: var(--verde-naturaleza);
+            margin-bottom: 1rem;
+        }
+
+        /* Navbar */
+        header {
+            background-color: var(--blanco);
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--verde-naturaleza);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            font-weight: 500;
+            color: var(--marron-fibra);
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .nav-item:hover {
+            color: var(--naranja-tropical);
+        }
+
+        .user-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--verde-naturaleza);
+            background-image: none;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            color: var(--blanco);
+            text-align: center;
+            padding: 6rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* oscurece la imagen para resaltar el texto */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+        }
+
+        .hero h1 {
+            color: var(--beige-artesanal);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background-color: var(--blanco);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            border-bottom: 4px solid var(--naranja-tropical);
+            transition: var(--transicion);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Formularios */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--blanco);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--marron-fibra);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--verde-naturaleza);
+            box-shadow: 0 0 0 2px rgba(46, 90, 39, 0.2);
+        }
+
+        /* Catálogo */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: var(--beige-artesanal);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--verde-naturaleza);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--naranja-tropical);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-artisan {
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fav-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            transition: var(--transicion);
+        }
+
+        .fav-btn.active {
+            color: var(--naranja-tropical);
+        }
+
+        /* Detalle Producto */
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: md 1fr 1fr;
+            gap: 2rem;
+            background: var(--blanco);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+        }
+        
+        @media (min-width: 768px) {
+            .product-detail-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .product-detail-img {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .product-detail-info h2 {
+            font-size: 2rem;
+        }
+
+        .product-detail-price {
+            font-size: 1.8rem;
+            color: var(--naranja-tropical);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .rating-stars {
+            color: var(--amarillo-tropical);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .rating-stars span {
+            transition: var(--transicion);
+        }
+        .rating-stars span:hover {
+            transform: scale(1.2);
+        }
+
+        /* Carrito y Tablas */
+        .table-container {
+            overflow-x: auto;
+            background: var(--blanco);
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--beige-artesanal);
+            color: var(--marron-fibra);
+        }
+
+        .cart-summary {
+            background: var(--blanco);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+            margin-top: 2rem;
+            text-align: right;
+        }
+
+        /* Dashboards */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--verde-naturaleza);
+            color: var(--blanco);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: var(--beige-artesanal);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Toasts */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color: var(--marron-fibra);
+            color: var(--blanco);
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s, fadeOut 0.5s 2.5s forwards;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 250px;
+        }
+
+        .toast.success { background-color: var(--verde-naturaleza); }
+        .toast.error { background-color: var(--naranja-tropical); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--marron-fibra);
+            color: var(--beige-artesanal);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header>
+        <div class="navbar">
+            <div class="logo" onclick="app.navigate('home')">
+                🌿 La Tucanera
+            </div>
+            <nav class="nav-links" id="main-nav">
+                <!-- Se llena dinámicamente según el usuario -->
+            </nav>
+            <div class="user-menu" id="user-menu">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main>
+        <!-- VISTA: INICIO -->
+        <section id="view-home" class="view active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Artesanía amazónica hecha con fibra de chambira</h1>
+                    <p>Conectamos a artesanos de la Amazonía con clientes que buscan productos sostenibles, hechos a mano y con identidad cultural.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-accent" onclick="app.navigate('catalog')">Ver Productos</button>
+                        <button class="btn btn-outline" style="color:white; border-color:white;" onclick="app.navigate('register')" id="hero-register-btn">Registrarme</button>
+                    </div>
+                </div>
+            </div>
+            <div class="info-cards">
+                <div class="card">
+                    <h3>🌿 Sostenibilidad</h3>
+                    <p>Uso responsable de la fibra de chambira, respetando los ciclos de la naturaleza amazónica.</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Comercio Justo</h3>
+                    <p>Pago directo y justo a las comunidades artesanas, valorando su tiempo y conocimiento ancestral.</p>
+                </div>
+                <div class="card">
+                    <h3>🎨 Identidad Cultural</h3>
+                    <p>Cada pieza cuenta una historia y preserva las técnicas de tejido transmitidas por generaciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: LOGIN -->
+        <section id="view-login" class="view">
+            <div class="form-container">
+                <h2>Iniciar Sesión</h2>
+                <form id="login-form" onsubmit="app.handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Ingresar</button>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        ¿No tienes cuenta? <a href="#" onclick="app.navigate('register'); return false;" style="color: var(--verde-naturaleza); font-weight: bold;">Regístrate</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- VISTA: REGISTRO -->
+        <section id="view-register" class="view">
+            <div class="form-container">
+                <h2>Crear Cuenta</h2>
+                <form id="register-form" onsubmit="app.handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-name">Nombre Completo</label>
+                        <input type="text" id="reg-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Correo Electrónico</label>
+                        <input type="email" id="reg-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Contraseña</label>
+                        <input type="password" id="reg-password" class="form-control" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-address">Dirección de envío / Comunidad</label>
+                        <input type="text" id="reg-address" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Registrarme</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VISTA: CATÁLOGO -->
+        <section id="view-catalog" class="view">
+            <div class="catalog-header">
+                <h2>Catálogo de Productos</h2>
+                <div class="filters">
+                    <input type="text" id="search-input" class="search-bar" placeholder="Buscar productos..." oninput="app.filterCatalog()">
+                    <select id="category-filter" class="form-control" style="width: auto;" onchange="app.filterCatalog()">
+                        <option value="all">Todas las categorías</option>
+                    </select>
+                </div>
+            </div>
+            <div class="product-grid" id="catalog-grid">
+                <!-- Se llena por JS -->
+            </div>
+        </section>
+
+        <!-- VISTA: DETALLE DE PRODUCTO -->
+        <section id="view-product-detail" class="view">
+            <!-- Se llena por JS -->
+        </section>
+
+        <!-- VISTA: CARRITO -->
+        <section id="view-cart" class="view">
+            <h2>Mi Carrito</h2>
+            <div id="cart-content">
+                <!-- Se llena por JS -->
+            </div>
+        </section>
+
+
+
+        <!-- VISTA: HISTORIAL DE COMPRAS -->
+        <section id="view-history" class="view">
+            <h2>Mi Historial de Compras</h2>
+            <div id="history-content">
+                <!-- Se llena por JS -->
+            </div>
+        </section>
+
+        <!-- VISTA: PERFIL USUARIO -->
+        <section id="view-profile" class="view">
+            <div class="form-container" style="max-width: 800px;">
+                <h2>Mi Perfil</h2>
+                <div id="profile-info" style="margin-bottom: 2rem;"></div>
+                
+                <h3>Mis Favoritos</h3>
+                <div class="product-grid" id="profile-favorites" style="margin-top: 1rem;">
+                    <!-- Se llena por JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: PERFIL ARTESANO (Público) -->
+        <section id="view-artisan-profile" class="view">
+            <!-- Se llena por JS -->
+        </section>
+
+        <!-- VISTA: PANEL ARTESANO -->
+        <section id="view-artisan-dashboard" class="view">
+            <h2>Panel de Artesano</h2>
+
+            <div class="catalog-header" style="justify-content: space-between; margin-bottom: 1rem; margin-top: 2rem;">
+                <h3>Personalizar Portada</h3>
+            </div>
+            <div class="form-container" style="max-width: 100%; margin-bottom: 2rem; padding: 1.5rem;">
+                <div class="form-group">
+                    <label for="heroImageFile">Subir nueva imagen de fondo desde tu dispositivo</label>
+                    <input type="file" id="heroImageFile" class="form-control" accept="image/*" onchange="app.previewHeroImage(event)" style="margin-bottom: 1rem;">
+                    
+                    <div id="hero-preview-container" class="hidden" style="margin-bottom: 1rem; text-align: center;">
+                        <p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--texto-secundario);">Vista previa:</p>
+                        <img id="hero-image-preview" src="" style="max-width: 100%; max-height: 200px; border-radius: 4px; border: 1px solid #ccc; object-fit: cover;">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="app.updateHeroImageFile()" style="width: 100%;">Actualizar fondo</button>
+                </div>
+            </div>
+
+            <div class="catalog-header" style="justify-content: space-between; margin-bottom: 1rem;">
+                <h3>Mis Productos</h3>
+                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <button class="btn btn-outline" style="color:var(--naranja-tropical); border-color:var(--naranja-tropical);" onclick="app.deleteAllProducts()">Eliminar todos los productos</button>
+                    <button class="btn btn-primary" onclick="app.openProductForm()">+ Agregar Producto</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="artisan-products-table">
+                        <!-- Se llena por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VISTA: PANEL ADMINISTRADOR -->
+        <section id="view-admin-dashboard" class="view">
+            <h2>Panel de Administración</h2>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Total Usuarios</h3>
+                    <div class="value" id="admin-stat-users">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Productos</h3>
+                    <div class="value" id="admin-stat-products">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Pedidos</h3>
+                    <div class="value" id="admin-stat-orders">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Ingresos Totales</h3>
+                    <div class="value" id="admin-stat-revenue">S/ 0</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+                <div>
+                    <div class="catalog-header" style="justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>Gestión de Productos</h3>
+                        <button class="btn btn-primary" onclick="app.openProductForm()">+ Agregar Producto</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Artesano</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Últimos Pedidos</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h3>Usuarios Registrados</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL: FORMULARIO PRODUCTO -->
+    <div id="product-modal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; display:flex; align-items:center; justify-content:center;">
+        <div class="form-container" style="max-width: 600px; width:100%; max-height:90vh; overflow-y:auto; position:relative;">
+            <button onclick="document.getElementById('product-modal').classList.add('hidden')" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <h3 id="product-form-title">Nuevo Producto</h3>
+            <form id="product-form" onsubmit="app.handleSaveProduct(event)">
+                <input type="hidden" id="prod-id">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Nombre del Producto</label>
+                        <input type="text" id="prod-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio (S/)</label>
+                        <input type="number" id="prod-price" class="form-control" required min="1" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <input list="category-list" id="prod-category" class="form-control" required placeholder="Ej: Bolsos, Accesorios...">
+                        <datalist id="category-list">
+                            <option value="Bolsos">
+                            <option value="Accesorios">
+                            <option value="Decoración">
+                            <option value="Moda">
+                            <option value="Otros">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Medidas del producto</label>
+                        <input type="text" id="prod-measures" class="form-control" required placeholder="Ej: 25 cm x 18 cm">
+                    </div>
+                    <div class="form-group">
+                        <label>Imágenes del Producto</label>
+                        <input type="file" id="productImages" class="form-control" accept="image/*" multiple onchange="app.previewProductImages(event)">
+                        <div id="product-images-preview" style="display:flex; gap:0.5rem; margin-top:0.5rem; overflow-x:auto;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="prod-desc" class="form-control" rows="3" required></textarea>
+                </div>
+                <div style="display:flex; gap:1rem; justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('product-modal').classList.add('hidden')">Cancelar</button>
+                    <button type="submit" class="btn btn-accent">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenedor de Notificaciones -->
+    <div id="toast-container"></div>
+
+    <footer>
+        <p>🌿 La Tucanera - Conectando la selva con el mundo</p>
+    </footer>
+
+    <script>
+        // --- BASE DE DATOS ---
+        const initialProducts = [];
+
+        const initialUsers = [
+            { id: "admin1", name: "Administrador", email: "admin@latucanera.com", password: "admin", role: "admin", address: "Oficina Central" },
+            { id: "artisan1", name: "Francisca Jane Orosco Martinez", email: "dtuesta2000@gmail.com", password: "123", role: "artisan", address: "Comunidad", story: "Artesana amazónica." },
+            { id: "client1", name: "Juan Cliente", email: "juan@cliente.com", password: "123", role: "client", address: "Lima, Perú" }
+        ];
+
+        const WHATSAPP_NUMBER = "51984999534";
+
+        // --- LÓGICA DE LA APLICACIÓN ---
+        const app = {
+            data: {
+                users: [],
+                products: [],
+                orders: [],
+                currentUser: null,
+                cart: [],
+                favorites: []
+            },
+            currentProductViewId: null,
+            tempProductImages: [],
+
+            // Inicialización
+            init() {
+                // Cargar datos de localStorage o establecer iniciales
+                this.loadData();
+                this.updateNav();
+                
+                // Manejar navegación inicial por hash o default a 'home'
+                const hash = window.location.hash.replace('#', '') || 'home';
+                this.navigate(hash, false);
+
+                // Configurar listener para atrás/adelante en el navegador
+                window.addEventListener('hashchange', () => {
+                    const view = window.location.hash.replace('#', '') || 'home';
+                    this.navigate(view, false);
+                });
+
+                this.applyHeroImage();
+            },
+
+            previewHeroImage(event) {
+                const file = event.target.files[0];
+                if (!file) {
+                    document.getElementById('hero-preview-container').classList.add('hidden');
+                    document.getElementById('hero-image-preview').src = '';
+                    return;
+                }
+
+                if (!file.type.startsWith('image/')) {
+                    this.showToast('Solo se permiten archivos de imagen.', 'error');
+                    event.target.value = '';
+                    document.getElementById('hero-preview-container').classList.add('hidden');
+                    return;
+                }
+
+                if (file.size > 4 * 1024 * 1024) {
+                    this.showToast('Imagen muy pesada, intenta con una imagen más ligera.', 'error');
+                    event.target.value = '';
+                    document.getElementById('hero-preview-container').classList.add('hidden');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewContainer = document.getElementById('hero-preview-container');
+                    const previewImg = document.getElementById('hero-image-preview');
+                    if (previewContainer && previewImg) {
+                        previewImg.src = e.target.result;
+                        previewContainer.classList.remove('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            },
+
+            updateHeroImageFile() {
+                const fileInput = document.getElementById('heroImageFile');
+                const file = fileInput.files[0];
+
+                if (!file) {
+                    this.showToast('Selecciona una imagen primero.', 'error');
+                    return;
+                }
+
+                if (!file.type.startsWith('image/')) {
+                    this.showToast('Solo se permiten archivos de imagen.', 'error');
+                    return;
+                }
+
+                if (file.size > 4 * 1024 * 1024) {
+                    this.showToast('Imagen muy pesada, intenta con una imagen más ligera.', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageBase64 = e.target.result;
+                    try {
+                        localStorage.setItem('tucanera_heroImage', imageBase64);
+                        this.applyHeroImage();
+                        this.showToast('Fondo actualizado correctamente');
+                        
+                        fileInput.value = '';
+                        document.getElementById('hero-preview-container').classList.add('hidden');
+                        document.getElementById('hero-image-preview').src = '';
+                    } catch (err) {
+                        this.showToast('Error al guardar: La imagen podría ser muy pesada para el navegador.', 'error');
+                    }
+                };
+                reader.readAsDataURL(file);
+            },
+            
+            applyHeroImage() {
+                // Limpiar localStorage antiguo si contiene la palabra "verdura" o la antigua URL
+                ['heroImage', 'tucanera_heroImage'].forEach(key => {
+                    const saved = localStorage.getItem(key);
+                    if (saved && (saved.includes("verdura") || saved.includes("unsplash"))) {
+                        localStorage.removeItem(key);
+                    }
+                });
+
+                const url = localStorage.getItem('tucanera_heroImage') || localStorage.getItem('heroImage');
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    if (url) {
+                        hero.style.backgroundImage = `url('${url}')`;
+                        hero.style.backgroundSize = "cover";
+                        hero.style.backgroundPosition = "center";
+                        hero.style.backgroundRepeat = "no-repeat";
+                    } else {
+                        hero.style.backgroundImage = "none";
+                    }
+                }
+            },
+
+            loadData() {
+                const lsUsers = localStorage.getItem('tucanera_users');
+                this.data.users = lsUsers ? JSON.parse(lsUsers) : initialUsers;
+                if(!lsUsers) localStorage.setItem('tucanera_users', JSON.stringify(this.data.users));
+
+                const lsProducts = localStorage.getItem('tucanera_products');
+                this.data.products = lsProducts ? JSON.parse(lsProducts) : initialProducts;
+                
+                // Migración para limpiar imágenes falsas y añadir campos faltantes
+                let needsSave = false;
+                this.data.products.forEach(p => {
+                    if(!p.imagenes) {
+                        p.imagenes = p.img ? [p.img] : [];
+                        needsSave = true;
+                    }
+                    if(p.imagenes) {
+                        const hasFake = p.imagenes.some(url => url.includes('unsplash.com') || url.includes('placeholder.com'));
+                        if (hasFake) {
+                            p.imagenes = p.imagenes.filter(url => !url.includes('unsplash.com') && !url.includes('placeholder.com'));
+                            needsSave = true;
+                        }
+                    }
+                    if(!p.medidas) {
+                        p.medidas = "Talla única / Estándar";
+                        needsSave = true;
+                    }
+                    if(!p.category) {
+                        p.category = "Otros";
+                        needsSave = true;
+                    }
+                });
+                
+                if(!lsProducts || needsSave) localStorage.setItem('tucanera_products', JSON.stringify(this.data.products));
+
+                const lsOrders = localStorage.getItem('tucanera_orders');
+                this.data.orders = lsOrders ? JSON.parse(lsOrders) : [];
+
+                const lsUser = sessionStorage.getItem('tucanera_currentUser');
+                if (lsUser) {
+                    this.data.currentUser = JSON.parse(lsUser);
+                    // Cargar carrito y favs del usuario
+                    const lsCart = localStorage.getItem(`tucanera_cart_${this.data.currentUser.id}`);
+                    this.data.cart = lsCart ? JSON.parse(lsCart) : [];
+                    const lsFavs = localStorage.getItem(`tucanera_favs_${this.data.currentUser.id}`);
+                    this.data.favorites = lsFavs ? JSON.parse(lsFavs) : [];
+                }
+            },
+
+            saveData(key, value) {
+                localStorage.setItem(`tucanera_${key}`, JSON.stringify(value));
+            },
+
+            // Sistema de Notificaciones (Toasts)
+            showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    if(toast.parentElement) toast.parentElement.removeChild(toast);
+                }, 3000);
+            },
+
+            // Navegación
+            navigate(viewId, pushState = true) {
+                // Ocultar todas las vistas
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                
+                // Mostrar la vista solicitada
+                const view = document.getElementById(`view-${viewId}`);
+                if (view) {
+                    view.classList.add('active');
+                    if (pushState) window.location.hash = viewId;
+                    
+                    // Lógica específica por vista
+                    if (viewId === 'catalog') this.renderCatalog();
+                    if (viewId === 'cart') this.renderCart();
+                    if (viewId === 'history') this.renderHistory();
+                    if (viewId === 'profile') this.renderProfile();
+                    if (viewId === 'admin-dashboard' && this.checkRole('admin')) this.renderAdminDashboard();
+                    if (viewId === 'artisan-dashboard' && this.checkRole('artisan')) this.renderArtisanDashboard();
+                    
+                    window.scrollTo(0, 0);
+                } else {
+                    this.navigate('home');
+                }
+            },
+
+            checkRole(role) {
+                if(!this.data.currentUser || this.data.currentUser.role !== role) {
+                    this.showToast('Acceso denegado', 'error');
+                    this.navigate('home');
+                    return false;
+                }
+                if (role === 'artisan' && this.data.currentUser.email !== 'dtuesta2000@gmail.com') {
+                    this.showToast('Acceso denegado, solo la artesana autorizada puede acceder.', 'error');
+                    this.navigate('home');
+                    return false;
+                }
+                return true;
+            },
+
+            updateNav() {
+                const nav = document.getElementById('main-nav');
+                const userMenu = document.getElementById('user-menu');
+                const heroBtn = document.getElementById('hero-register-btn');
+                
+                let navHtml = `<span class="nav-item" onclick="app.navigate('catalog')">Catálogo</span>`;
+                let userHtml = '';
+
+                if (this.data.currentUser) {
+                    if(heroBtn) heroBtn.classList.add('hidden');
+
+                    if (this.data.currentUser.role === 'client') {
+                        navHtml += `<span class="nav-item" onclick="app.navigate('history')">Mis Pedidos</span>`;
+                    } else if (this.data.currentUser.role === 'artisan' && this.data.currentUser.email === 'dtuesta2000@gmail.com') {
+                        navHtml += `<span class="nav-item" onclick="app.navigate('artisan-dashboard')">Mi Panel</span>`;
+                    } else if (this.data.currentUser.role === 'admin') {
+                        navHtml += `<span class="nav-item" onclick="app.navigate('admin-dashboard')">Administración</span>`;
+                    }
+
+                    // Carrito (solo clientes y visitantes, pero lo mostramos para todos por simplicidad, aunque admin no compre)
+                    if (this.data.currentUser.role === 'client') {
+                        userHtml += `
+                            <span class="nav-item" onclick="app.navigate('cart')" title="Carrito">
+                                🛒 <span id="cart-count" style="background:var(--naranja-tropical); color:white; border-radius:50%; padding:0.1rem 0.4rem; font-size:0.8rem;">${this.cartCount()}</span>
+                            </span>
+                        `;
+                    }
+
+                    userHtml += `
+                        <span class="nav-item" onclick="app.navigate('profile')">👤 Hola, ${this.data.currentUser.name.split(' ')[0]}</span>
+                        <button class="btn btn-outline" style="padding: 0.3rem 0.8rem;" onclick="app.logout()">Salir</button>
+                    `;
+                } else {
+                    if(heroBtn) heroBtn.classList.remove('hidden');
+                    userHtml = `
+                        <span class="nav-item" onclick="app.navigate('cart')" title="Carrito">
+                            🛒 <span id="cart-count" style="background:var(--naranja-tropical); color:white; border-radius:50%; padding:0.1rem 0.4rem; font-size:0.8rem;">${this.cartCount()}</span>
+                        </span>
+                        <button class="btn btn-outline" onclick="app.navigate('login')">Ingresar</button>
+                        <button class="btn btn-primary" onclick="app.navigate('register')">Registrarse</button>
+                    `;
+                }
+
+                nav.innerHTML = navHtml;
+                userMenu.innerHTML = userHtml;
+            },
+
+            // Autenticación
+            handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const pass = document.getElementById('login-password').value;
+
+                const user = this.data.users.find(u => u.email === email && u.password === pass);
+                if (user) {
+                    this.data.currentUser = user;
+                    sessionStorage.setItem('tucanera_currentUser', JSON.stringify(user));
+                    this.loadData(); // Cargar carrito y favs
+                    this.updateNav();
+                    this.showToast('Inicio de sesión exitoso');
+                    
+                    if(user.role === 'admin') this.navigate('admin-dashboard');
+                    else if(user.role === 'artisan') this.navigate('artisan-dashboard');
+                    else this.navigate('catalog');
+                } else {
+                    this.showToast('Credenciales incorrectas', 'error');
+                }
+            },
+
+            handleRegister(e) {
+                e.preventDefault();
+                const name = document.getElementById('reg-name').value;
+                const email = document.getElementById('reg-email').value;
+                const pass = document.getElementById('reg-password').value;
+                const address = document.getElementById('reg-address').value;
+                const role = (email === 'dtuesta2000@gmail.com') ? 'artisan' : 'client';
+
+                if(this.data.users.find(u => u.email === email)) {
+                    this.showToast('El correo ya está registrado', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    id: role + Date.now(),
+                    name, email, password: pass, address, role,
+                    story: role === 'artisan' ? 'Nuevo artesano en La Tucanera.' : undefined
+                };
+
+                this.data.users.push(newUser);
+                this.saveData('users', this.data.users);
+                
+                // Auto login
+                this.data.currentUser = newUser;
+                sessionStorage.setItem('tucanera_currentUser', JSON.stringify(newUser));
+                this.updateNav();
+                this.showToast('Registro exitoso');
+                
+                if(role === 'artisan') this.navigate('artisan-dashboard');
+                else this.navigate('catalog');
+            },
+
+            logout() {
+                this.data.currentUser = null;
+                this.data.cart = [];
+                this.data.favorites = [];
+                sessionStorage.removeItem('tucanera_currentUser');
+                this.updateNav();
+                this.navigate('home');
+                this.showToast('Sesión cerrada');
+            },
+
+            // Catálogo y Productos
+            renderCatalog() {
+                const grid = document.getElementById('catalog-grid');
+                grid.innerHTML = '';
+                
+                const catFilter = document.getElementById('category-filter');
+                const currentCat = catFilter.value;
+                const uniqueCategories = [...new Set(this.data.products.map(p => p.category))].filter(Boolean).sort();
+                let catOptions = '<option value="all">Todas las categorías</option>';
+                uniqueCategories.forEach(c => {
+                    catOptions += `<option value="${c}" ${currentCat === c ? 'selected' : ''}>${c}</option>`;
+                });
+                catFilter.innerHTML = catOptions;
+
+                const searchQuery = (document.getElementById('search-input').value || '').toLowerCase();
+                const category = catFilter.value;
+
+                const filtered = this.data.products.filter(p => {
+                    const matchSearch = p.name.toLowerCase().includes(searchQuery);
+                    const matchCat = category === 'all' || p.category === category;
+                    return matchSearch && matchCat;
+                });
+
+                if(filtered.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--blanco); border-radius: 8px;"><h3 style="color: var(--texto-secundario);">Aún no hay productos disponibles</h3></div>';
+                    return;
+                }
+
+                filtered.forEach(p => {
+                    const isFav = this.data.favorites.includes(p.id);
+                    const hasImage = p.imagenes && p.imagenes.length > 0;
+                    const imgHtml = hasImage 
+                        ? `<img src="${p.imagenes[0]}" alt="${p.name}" class="product-img">`
+                        : `<div class="product-img" style="display:flex; align-items:center; justify-content:center; background-color:#e0e0e0; color:#666; font-size:1rem; text-align:center; padding:1rem;"><span>Sin imagen disponible</span></div>`;
+                    
+                    grid.innerHTML += `
+                        <div class="product-card">
+                            ${imgHtml}
+                            <div class="product-info">
+                                <span style="font-size:0.8rem; background:var(--beige-artesanal); padding:0.2rem 0.5rem; border-radius:10px;">${p.category || 'Otros'}</span>
+                                <h3 class="product-title" style="margin-top:0.5rem; cursor:pointer;" onclick="app.viewProduct(${p.id})">${p.name}</h3>
+                                <p class="product-artisan">por <a href="#" onclick="app.viewArtisan('${p.artisanId}'); return false;">${p.artisanName}</a></p>
+                                <p style="font-size:0.85rem; color:var(--texto-secundario); margin-bottom:0.5rem;">📏 ${p.medidas}</p>
+                                <div class="product-price">S/ ${p.price.toFixed(2)}</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-primary" onclick="app.addToCart(${p.id})">Añadir</button>
+                                    <button class="fav-btn ${isFav ? 'active' : ''}" onclick="app.toggleFav(${p.id}, this)">
+                                        ${isFav ? '❤️' : '🤍'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            },
+
+            filterCatalog() {
+                this.renderCatalog();
+            },
+
+            viewProduct(id) {
+                const product = this.data.products.find(p => p.id === id);
+                if(!product) return;
+                this.currentProductViewId = id;
+
+                const container = document.getElementById('view-product-detail');
+                const isFav = this.data.favorites.includes(product.id);
+                
+                // Generar estrellas
+                let starsHtml = '';
+                for(let i=1; i<=5; i++) {
+                    starsHtml += `<span onclick="app.rateProduct(${product.id}, ${i})">${i <= Math.round(product.rating) ? '★' : '☆'}</span>`;
+                }
+
+                // Generar galería
+                let galleryHtml = '';
+                if(product.imagenes && product.imagenes.length > 1) {
+                    galleryHtml = '<div style="display:flex; gap:0.5rem; margin-top:1rem; overflow-x:auto; padding-bottom:0.5rem;">';
+                    product.imagenes.forEach(imgUrl => {
+                        galleryHtml += `<img src="${imgUrl}" style="width:80px; height:80px; object-fit:cover; border-radius:4px; cursor:pointer; border:2px solid transparent; transition:border 0.3s;" onmouseover="this.style.borderColor='var(--verde-naturaleza)'" onmouseout="this.style.borderColor='transparent'" onclick="const mainImg = document.getElementById('main-product-img'); if(mainImg && mainImg.tagName==='IMG') mainImg.src='${imgUrl}'">`;
+                    });
+                    galleryHtml += '</div>';
+                }
+
+                const hasImage = product.imagenes && product.imagenes.length > 0;
+                const mainImgHtml = hasImage 
+                    ? `<img id="main-product-img" src="${product.imagenes[0]}" alt="${product.name}" class="product-detail-img">`
+                    : `<div class="product-detail-img" style="display:flex; align-items:center; justify-content:center; background-color:#e0e0e0; color:#666; font-size:1.2rem; min-height:300px; text-align:center;"><span>Sin imagen disponible</span></div>`;
+
+                container.innerHTML = `
+                    <div class="product-detail-container">
+                        <div>
+                            ${mainImgHtml}
+                            ${galleryHtml}
+                        </div>
+                        <div class="product-detail-info">
+                            <h2>${product.name}</h2>
+                            <p style="font-size:1.1rem; color:var(--texto-secundario); margin-bottom:0.5rem;">Categoría: <strong>${product.category || 'Otros'}</strong></p>
+                            <p style="color: var(--verde-naturaleza); font-weight:bold; cursor:pointer;" onclick="app.viewArtisan('${product.artisanId}')">Artesano: ${product.artisanName}</p>
+                            <p style="font-size:1rem; color:var(--texto-secundario); margin-top:0.5rem;">📏 Medidas: ${product.medidas}</p>
+                            <div class="product-detail-price">S/ ${product.price.toFixed(2)}</div>
+                            
+                            <div class="rating-stars" title="Calificar producto">
+                                ${starsHtml} <span style="color: var(--texto-secundario); font-size:0.9rem; margin-left:0.5rem;">(${product.rating.toFixed(1)} / ${product.ratingsCount} votos)</span>
+                            </div>
+
+                            <p style="margin: 1.5rem 0; line-height:1.6;">${product.desc}</p>
+                            <div style="background: var(--beige-artesanal); padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem;">
+                                <strong>Historia de la pieza:</strong><br>
+                                ${product.story || 'Hecho con amor y tradición en la Amazonía.'}
+                            </div>
+                            
+                            <div style="display:flex; gap:1rem;">
+                                <button class="btn btn-primary" onclick="app.addToCart(${product.id})" style="flex:1;">🛒 Agregar al Carrito</button>
+                                <button class="btn btn-outline" onclick="app.toggleFav(${product.id}, null, true)" style="flex:1;">
+                                    ${isFav ? '❤️ Quitar Favorito' : '🤍 Guardar Favorito'}
+                                </button>
+                            </div>
+                            <button class="btn" style="margin-top:1rem; width:100%; text-decoration:underline; background:none; color:var(--texto-secundario);" onclick="app.navigate('catalog')">← Volver al catálogo</button>
+                        </div>
+                    </div>
+                `;
+                
+                this.navigate('product-detail', true);
+            },
+
+            rateProduct(productId, score) {
+                if(!this.data.currentUser) {
+                    this.showToast('Debes iniciar sesión para calificar', 'error');
+                    this.navigate('login');
+                    return;
+                }
+                const product = this.data.products.find(p => p.id === productId);
+                if(product) {
+                    // Simulación simple de cálculo de rating
+                    product.ratingsCount += 1;
+                    product.rating = ((product.rating * (product.ratingsCount - 1)) + score) / product.ratingsCount;
+                    this.saveData('products', this.data.products);
+                    this.showToast(`Calificaste con ${score} estrellas`);
+                    if(this.currentProductViewId === productId) {
+                        this.viewProduct(productId); // Recargar vista
+                    }
+                }
+            },
+
+            viewArtisan(artisanId) {
+                const artisan = this.data.users.find(u => u.id === artisanId && u.role === 'artisan');
+                if(!artisan) return;
+
+                const artisanProducts = this.data.products.filter(p => p.artisanId === artisanId);
+                const container = document.getElementById('view-artisan-profile');
+                
+                let prodsHtml = '';
+                artisanProducts.forEach(p => {
+                    const hasImage = p.imagenes && p.imagenes.length > 0;
+                    const imgHtml = hasImage 
+                        ? `<img src="${p.imagenes[0]}" class="product-img">`
+                        : `<div class="product-img" style="display:flex; align-items:center; justify-content:center; background-color:#e0e0e0; color:#666; font-size:1rem; text-align:center; padding:1rem;"><span>Sin imagen disponible</span></div>`;
+                    
+                    prodsHtml += `
+                        <div class="product-card">
+                            ${imgHtml}
+                            <div class="product-info">
+                                <span style="font-size:0.8rem; background:var(--beige-artesanal); padding:0.2rem 0.5rem; border-radius:10px;">${p.category || 'Otros'}</span>
+                                <h3 class="product-title" onclick="app.viewProduct(${p.id})" style="cursor:pointer;">${p.name}</h3>
+                                <p style="font-size:0.85rem; color:var(--texto-secundario); margin-bottom:0.5rem;">📏 ${p.medidas}</p>
+                                <div class="product-price">S/ ${p.price.toFixed(2)}</div>
+                                <button class="btn btn-primary" onclick="app.addToCart(${p.id})">Añadir</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = `
+                    <div style="background: var(--blanco); padding: 2rem; border-radius: 8px; box-shadow: var(--sombra); margin-bottom: 2rem; text-align:center;">
+                        <div style="width:100px; height:100px; background:var(--verde-naturaleza); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:3rem; margin:0 auto 1rem auto;">
+                            ${artisan.name.charAt(0)}
+                        </div>
+                        <h2>${artisan.name}</h2>
+                        <p style="color:var(--marron-fibra); font-weight:bold; margin-bottom:1rem;">📍 ${artisan.address}</p>
+                        <p style="max-width:600px; margin:0 auto; font-style:italic;">"${artisan.story || 'Protegiendo el bosque a través del tejido.'}"</p>
+                    </div>
+                    <h3>Obras de ${artisan.name}</h3>
+                    <div class="product-grid" style="margin-top:1rem;">
+                        ${prodsHtml || '<p>Aún no tiene productos publicados.</p>'}
+                    </div>
+                `;
+                this.navigate('artisan-profile', true);
+            },
+
+            // Carrito
+            cartCount() {
+                return this.data.cart.reduce((sum, item) => sum + item.qty, 0);
+            },
+
+            addToCart(productId) {
+                const product = this.data.products.find(p => p.id === productId);
+                if(!product) return;
+
+                const existing = this.data.cart.find(item => item.id === productId);
+                if(existing) {
+                    existing.qty += 1;
+                } else {
+                    this.data.cart.push({ ...product, qty: 1 });
+                }
+
+                if(this.data.currentUser) {
+                    localStorage.setItem(`tucanera_cart_${this.data.currentUser.id}`, JSON.stringify(this.data.cart));
+                }
+                
+                this.updateNav();
+                this.showToast('Producto agregado al carrito');
+            },
+
+            updateCartQty(productId, change) {
+                const item = this.data.cart.find(i => i.id === productId);
+                if(item) {
+                    item.qty += change;
+                    if(item.qty <= 0) {
+                        this.data.cart = this.data.cart.filter(i => i.id !== productId);
+                    }
+                    if(this.data.currentUser) {
+                        localStorage.setItem(`tucanera_cart_${this.data.currentUser.id}`, JSON.stringify(this.data.cart));
+                    }
+                    this.updateNav();
+                    this.renderCart();
+                }
+            },
+
+            renderCart() {
+                const container = document.getElementById('cart-content');
+                if(this.data.cart.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding: 3rem; background:var(--blanco); border-radius:8px;">
+                            <h3 style="color:var(--texto-secundario);">Tu carrito está vacío</h3>
+                            <button class="btn btn-primary" style="margin-top:1rem;" onclick="app.navigate('catalog')">Ir al Catálogo</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let total = 0;
+                let html = `
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                this.data.cart.forEach(item => {
+                    const subtotal = item.price * item.qty;
+                    total += subtotal;
+                    html += `
+                        <tr>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:1rem;">
+                                    ${item.imagenes && item.imagenes.length > 0 
+                                        ? `<img src="${item.imagenes[0]}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">`
+                                        : `<div style="width:50px; height:50px; border-radius:4px; background-color:#e0e0e0; display:flex; align-items:center; justify-content:center;"><span style="font-size:0.6rem; color:#666; text-align:center;">Sin<br>imagen</span></div>`
+                                    }
+                                    <span>${item.name}</span>
+                                </div>
+                            </td>
+                            <td>S/ ${item.price.toFixed(2)}</td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:0.5rem;">
+                                    <button class="btn btn-outline" style="padding:0.2rem 0.5rem;" onclick="app.updateCartQty(${item.id}, -1)">-</button>
+                                    <span>${item.qty}</span>
+                                    <button class="btn btn-outline" style="padding:0.2rem 0.5rem;" onclick="app.updateCartQty(${item.id}, 1)">+</button>
+                                </div>
+                            </td>
+                            <td>S/ ${subtotal.toFixed(2)}</td>
+                            <td><button class="btn" style="background:var(--naranja-tropical); color:white; padding:0.3rem 0.6rem;" onclick="app.updateCartQty(${item.id}, -${item.qty})">🗑️</button></td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-summary">
+                        <h3>Total a pagar: <span style="color:var(--verde-naturaleza); font-size:1.8rem;">S/ ${total.toFixed(2)}</span></h3>
+                        <button class="btn" style="background:#25D366; color:white; font-size:1.2rem; padding:1rem 2rem; margin-top:1rem; display:inline-flex; align-items:center; gap:0.5rem;" onclick="app.comprarPorWhatsApp()">
+                            <span>📱</span> Comprar por WhatsApp
+                        </button>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            },
+
+            // Favoritos
+            toggleFav(productId, btnElement, isDetailView = false) {
+                if(!this.data.currentUser) {
+                    this.showToast('Inicia sesión para guardar favoritos', 'error');
+                    this.navigate('login');
+                    return;
+                }
+
+                const index = this.data.favorites.indexOf(productId);
+                if(index === -1) {
+                    this.data.favorites.push(productId);
+                    this.showToast('Agregado a favoritos');
+                    if(btnElement) {
+                        btnElement.classList.add('active');
+                        btnElement.innerText = '❤️';
+                    }
+                } else {
+                    this.data.favorites.splice(index, 1);
+                    this.showToast('Removido de favoritos');
+                    if(btnElement) {
+                        btnElement.classList.remove('active');
+                        btnElement.innerText = '🤍';
+                    }
+                }
+
+                localStorage.setItem(`tucanera_favs_${this.data.currentUser.id}`, JSON.stringify(this.data.favorites));
+                
+                if(isDetailView) {
+                    this.viewProduct(productId); // Recargar texto del botón en detalle
+                }
+            },
+
+            // Compra por WhatsApp
+            comprarPorWhatsApp() {
+                if(this.data.cart.length === 0) {
+                    this.showToast('Tu carrito está vacío', 'error');
+                    return;
+                }
+
+                const total = this.data.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                
+                const clienteNombre = this.data.currentUser ? this.data.currentUser.name : "Cliente no registrado";
+                const clienteCorreo = this.data.currentUser ? this.data.currentUser.email : "No disponible";
+                const clienteDir = this.data.currentUser ? (this.data.currentUser.address || "No disponible") : "No disponible";
+                
+                let message = `Hola, quiero realizar un pedido en La Tucanera.\n\n`;
+                message += `Datos del cliente:\n`;
+                message += `Nombre: ${clienteNombre}\n`;
+                message += `Correo: ${clienteCorreo}\n`;
+                message += `Dirección: ${clienteDir}\n\n`;
+                message += `Detalle del pedido:\n`;
+
+                this.data.cart.forEach((item, index) => {
+                    const subtotal = item.price * item.qty;
+                    message += `${index + 1}. Producto: ${item.name}\n`;
+                    message += `Medidas: ${item.medidas}\n`;
+                    message += `Imagen: ${item.imagenes && item.imagenes.length > 0 ? item.imagenes[0] : 'Sin imagen disponible'}\n`;
+                    message += `Categoría: ${item.category || 'Otros'}\n`;
+                    message += `Descripción: ${item.desc}\n`;
+                    message += `Artesano: ${item.artisanName}\n`;
+                    message += `Precio unitario: S/ ${item.price.toFixed(2)}\n`;
+                    message += `Cantidad: ${item.qty}\n`;
+                    message += `Subtotal: S/ ${subtotal.toFixed(2)}\n\n`;
+                });
+
+                message += `Total a pagar: S/ ${total.toFixed(2)}\n\n`;
+                message += `Quisiera coordinar el pago y la entrega por WhatsApp. Muchas gracias.`;
+
+                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+                // Guardar pedido como pendiente
+                const userId = this.data.currentUser ? this.data.currentUser.id : 'invitado';
+                const newOrder = {
+                    id: 'ORD-' + Date.now(),
+                    userId: userId,
+                    userName: clienteNombre,
+                    date: new Date().toLocaleDateString(),
+                    items: [...this.data.cart],
+                    total: total,
+                    address: clienteDir,
+                    method: 'WhatsApp',
+                    status: 'Pendiente por WhatsApp'
+                };
+
+                this.data.orders.push(newOrder);
+                this.saveData('orders', this.data.orders);
+
+                // Vaciar carrito
+                this.data.cart = [];
+                if(this.data.currentUser) {
+                    localStorage.setItem(`tucanera_cart_${this.data.currentUser.id}`, JSON.stringify([]));
+                }
+                this.updateNav();
+
+                this.showToast('Tu pedido fue enviado a WhatsApp para coordinar el pago y la entrega.', 'success');
+                
+                // Redirigir a WhatsApp
+                window.open(whatsappUrl, '_blank');
+                
+                if (this.data.currentUser) {
+                    this.navigate('history');
+                } else {
+                    this.navigate('catalog');
+                }
+            },
+
+            // Historial y Perfil
+            renderHistory() {
+                const container = document.getElementById('history-content');
+                if(!this.data.currentUser) return;
+
+                const myOrders = this.data.orders.filter(o => o.userId === this.data.currentUser.id).reverse();
+
+                if(myOrders.length === 0) {
+                    container.innerHTML = '<p>Aún no has realizado ninguna compra.</p>';
+                    return;
+                }
+
+                let html = '';
+                myOrders.forEach(order => {
+                    let itemsHtml = order.items.map(i => `${i.qty}x ${i.name} <span style="font-size:0.8rem; color:var(--texto-secundario);">(📏 ${i.medidas || 'Estándar'})</span>`).join('<br>');
+                    html += `
+                        <div style="background:var(--blanco); padding:1.5rem; border-radius:8px; box-shadow:var(--sombra); margin-bottom:1rem; border-left:4px solid var(--verde-naturaleza);">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:1rem;">
+                                <div>
+                                    <strong>Pedido: ${order.id}</strong><br>
+                                    <span style="color:var(--texto-secundario); font-size:0.9rem;">Fecha: ${order.date}</span>
+                                </div>
+                                <div style="text-align:right;">
+                                    <strong style="color:var(--naranja-tropical); font-size:1.2rem;">S/ ${order.total.toFixed(2)}</strong><br>
+                                    <span style="background:var(--beige-artesanal); padding:0.2rem 0.5rem; border-radius:4px; font-size:0.8rem;">${order.status}</span>
+                                </div>
+                            </div>
+                            <div style="font-size:0.9rem; color:var(--texto-secundario);">
+                                <strong>Productos:</strong><br>
+                                ${itemsHtml}
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            },
+
+            renderProfile() {
+                if(!this.data.currentUser) return;
+                const user = this.data.currentUser;
+                const infoDiv = document.getElementById('profile-info');
+                
+                infoDiv.innerHTML = `
+                    <p><strong>Nombre:</strong> ${user.name}</p>
+                    <p><strong>Correo:</strong> ${user.email}</p>
+                    <p><strong>Dirección:</strong> ${user.address}</p>
+                    <p><strong>Tipo de cuenta:</strong> <span style="text-transform:capitalize; background:var(--verde-claro); color:white; padding:0.2rem 0.5rem; border-radius:4px;">${user.role}</span></p>
+                `;
+
+                const favContainer = document.getElementById('profile-favorites');
+                const favProducts = this.data.products.filter(p => this.data.favorites.includes(p.id));
+                
+                if(favProducts.length === 0) {
+                    favContainer.innerHTML = '<p>No tienes productos favoritos guardados.</p>';
+                } else {
+                    let fHtml = '';
+                    favProducts.forEach(p => {
+                        const hasImage = p.imagenes && p.imagenes.length > 0;
+                        const imgHtml = hasImage 
+                            ? `<img src="${p.imagenes[0]}" class="product-img" style="height:150px;">`
+                            : `<div class="product-img" style="height:150px; display:flex; align-items:center; justify-content:center; background-color:#e0e0e0; color:#666; font-size:1rem; text-align:center; padding:1rem;"><span>Sin imagen disponible</span></div>`;
+                        
+                        fHtml += `
+                            <div class="product-card" style="display:flex; flex-direction:column;">
+                                ${imgHtml}
+                                <div style="padding:1rem;">
+                                    <h4 onclick="app.viewProduct(${p.id})" style="cursor:pointer; color:var(--verde-naturaleza);">${p.name}</h4>
+                                    <p>S/ ${p.price.toFixed(2)}</p>
+                                    <button class="btn btn-outline" style="width:100%; margin-top:0.5rem; padding:0.3rem;" onclick="app.toggleFav(${p.id}, null); app.renderProfile();">Quitar</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    favContainer.innerHTML = fHtml;
+                }
+            },
+
+            // Panel de Artesano
+            renderArtisanDashboard() {
+                if(!this.data.currentUser || this.data.currentUser.role !== 'artisan' || this.data.currentUser.email !== 'dtuesta2000@gmail.com') return;
+                const tbody = document.getElementById('artisan-products-table');
+                
+                const myProducts = this.data.products.filter(p => p.artisanId === this.data.currentUser.id);
+                
+                if(myProducts.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No tienes productos publicados.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                myProducts.forEach(p => {
+                    html += `
+                        <tr>
+                            <td>#${p.id}</td>
+                            <td>${p.name}</td>
+                            <td>${p.category}</td>
+                            <td>S/ ${p.price.toFixed(2)}</td>
+                            <td>
+                                <button class="btn btn-outline" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="app.openProductForm(${p.id})">Editar</button>
+                                <button class="btn" style="background:var(--naranja-tropical); color:white; padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="app.deleteProduct(${p.id})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            },
+
+            openProductForm(id = null) {
+                const modal = document.getElementById('product-modal');
+                const form = document.getElementById('product-form');
+                const title = document.getElementById('product-form-title');
+                
+                form.reset();
+                app.tempProductImages = [];
+                document.getElementById('product-images-preview').innerHTML = '';
+                document.getElementById('productImages').value = '';
+                
+                if(id) {
+                    title.innerText = 'Editar Producto';
+                    const prod = this.data.products.find(p => p.id === id);
+                    if(prod) {
+                        document.getElementById('prod-id').value = prod.id;
+                        document.getElementById('prod-name').value = prod.name;
+                        document.getElementById('prod-price').value = prod.price;
+                        document.getElementById('prod-category').value = prod.category;
+                        document.getElementById('prod-measures').value = prod.medidas || '';
+                        
+                        if (prod.imagenes && prod.imagenes.length > 0) {
+                            app.tempProductImages = [...prod.imagenes];
+                            app.renderTempImages();
+                        }
+                        
+                        document.getElementById('prod-desc').value = prod.desc;
+                    }
+                } else {
+                    title.innerText = 'Nuevo Producto';
+                    document.getElementById('prod-id').value = '';
+                }
+                
+                modal.classList.remove('hidden');
+            },
+
+            handleSaveProduct(e) {
+                e.preventDefault();
+                const idField = document.getElementById('prod-id').value;
+                const name = document.getElementById('prod-name').value.trim();
+                const price = parseFloat(document.getElementById('prod-price').value);
+                const category = document.getElementById('prod-category').value;
+                const medidas = document.getElementById('prod-measures').value.trim();
+                const desc = document.getElementById('prod-desc').value.trim();
+                
+                if(!name || price <= 0 || !category || !medidas || !desc) {
+                    this.showToast('Por favor completa todos los campos correctamente.', 'error');
+                    return;
+                }
+
+                if (app.tempProductImages.length === 0) {
+                    this.showToast('Debes subir al menos una imagen del producto.', 'error');
+                    return;
+                }
+
+                let imagenes = [...app.tempProductImages];
+
+                if(idField) {
+                    // Editar
+                    const prodIndex = this.data.products.findIndex(p => p.id == idField);
+                    if(prodIndex !== -1) {
+                        this.data.products[prodIndex] = {
+                            ...this.data.products[prodIndex],
+                            name, price, category, medidas, desc, imagenes
+                        };
+                        this.showToast('Producto actualizado correctamente');
+                    }
+                } else {
+                    // Nuevo
+                    const newProduct = {
+                        id: Date.now(),
+                        name, price, category, medidas, desc, imagenes,
+                        artisanId: this.data.currentUser.id,
+                        artisanName: this.data.currentUser.name,
+                        story: "Producto artesanal nuevo.",
+                        rating: 0,
+                        ratingsCount: 0
+                    };
+                    this.data.products.push(newProduct);
+                    this.showToast('Producto agregado correctamente');
+                }
+
+                this.saveData('products', this.data.products);
+                document.getElementById('product-modal').classList.add('hidden');
+                
+                if(this.data.currentUser.role === 'admin') {
+                    this.renderAdminDashboard();
+                } else {
+                    this.renderArtisanDashboard();
+                }
+                
+                this.renderCatalog();
+                if (this.currentProductViewId == idField) {
+                    this.viewProduct(parseInt(idField));
+                }
+            },
+
+            deleteProduct(id) {
+                const product = this.data.products.find(p => p.id === id);
+                if (!product) return;
+
+                if (this.data.currentUser.role === 'artisan' && product.artisanId !== this.data.currentUser.id) {
+                    this.showToast('No tienes permiso para eliminar este producto.', 'error');
+                    return;
+                }
+
+                if(confirm('¿Seguro que deseas eliminar este producto?')) {
+                    this.data.products = this.data.products.filter(p => p.id !== id);
+                    this.saveData('products', this.data.products);
+                    
+                    this.data.cart = this.data.cart.filter(item => item.id !== id);
+                    const favIndex = this.data.favorites.indexOf(id);
+                    if(favIndex !== -1) {
+                        this.data.favorites.splice(favIndex, 1);
+                    }
+
+                    if(this.data.currentUser) {
+                        localStorage.setItem(`tucanera_cart_${this.data.currentUser.id}`, JSON.stringify(this.data.cart));
+                        localStorage.setItem(`tucanera_favs_${this.data.currentUser.id}`, JSON.stringify(this.data.favorites));
+                    }
+
+                    this.showToast('Producto eliminado correctamente');
+                    if(this.data.currentUser.role === 'admin') {
+                        this.renderAdminDashboard();
+                    } else {
+                        this.renderArtisanDashboard();
+                    }
+                    // Refrescar catálogo sin recargar
+                    this.renderCatalog();
+                }
+            },
+
+            deleteAllProducts() {
+                if(!this.data.currentUser || this.data.currentUser.role !== 'artisan') return;
+                
+                if(confirm('Esta acción eliminará todos los productos. ¿Deseas continuar?')) {
+                    this.data.products = [];
+                    this.saveData('products', this.data.products);
+                    
+                    this.data.cart = [];
+                    if(this.data.currentUser) {
+                        localStorage.setItem(`tucanera_cart_${this.data.currentUser.id}`, JSON.stringify([]));
+                    }
+                    
+                    this.showToast('Todos los productos fueron eliminados correctamente.');
+                    this.renderArtisanDashboard();
+                    this.renderCatalog();
+                }
+            },
+
+            previewProductImages(event) {
+                const files = event.target.files;
+                if (!files || files.length === 0) return;
+
+                let filesProcessed = 0;
+                let filesToProcess = files.length;
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (!file.type.startsWith('image/')) {
+                        filesToProcess--;
+                        continue;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        app.tempProductImages.push(e.target.result);
+                        filesProcessed++;
+                        if (filesProcessed === filesToProcess) {
+                            app.renderTempImages();
+                            event.target.value = ''; // Reset input to allow selecting same files again
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+                
+                if (filesToProcess === 0) {
+                    event.target.value = ''; // Reset if none were images
+                }
+            },
+
+            renderTempImages() {
+                const previewContainer = document.getElementById('product-images-preview');
+                previewContainer.innerHTML = '';
+                app.tempProductImages.forEach((imgBase64, index) => {
+                    const wrap = document.createElement('div');
+                    wrap.style.position = 'relative';
+                    wrap.style.display = 'inline-block';
+                    
+                    const img = document.createElement('img');
+                    img.src = imgBase64;
+                    img.style.width = '60px';
+                    img.style.height = '60px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '4px';
+                    
+                    const btn = document.createElement('button');
+                    btn.innerHTML = '&times;';
+                    btn.style.position = 'absolute';
+                    btn.style.top = '-5px';
+                    btn.style.right = '-5px';
+                    btn.style.background = '#e76f51';
+                    btn.style.color = 'white';
+                    btn.style.border = 'none';
+                    btn.style.borderRadius = '50%';
+                    btn.style.width = '20px';
+                    btn.style.height = '20px';
+                    btn.style.cursor = 'pointer';
+                    btn.style.fontSize = '14px';
+                    btn.style.fontWeight = 'bold';
+                    btn.style.display = 'flex';
+                    btn.style.alignItems = 'center';
+                    btn.style.justifyContent = 'center';
+                    btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                    btn.title = 'Eliminar imagen';
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        app.tempProductImages.splice(index, 1);
+                        app.renderTempImages();
+                    };
+                    
+                    wrap.appendChild(img);
+                    wrap.appendChild(btn);
+                    previewContainer.appendChild(wrap);
+                });
+            },
+
+            // Panel de Administración
+            renderAdminDashboard() {
+                if(!this.checkRole('admin')) return;
+
+                document.getElementById('admin-stat-users').innerText = this.data.users.length;
+                document.getElementById('admin-stat-products').innerText = this.data.products.length;
+                document.getElementById('admin-stat-orders').innerText = this.data.orders.length;
+                
+                const totalRevenue = this.data.orders.reduce((sum, o) => sum + o.total, 0);
+                document.getElementById('admin-stat-revenue').innerText = `S/ ${totalRevenue.toFixed(2)}`;
+
+                // Tabla Productos
+                const pBody = document.getElementById('admin-products-table');
+                if (pBody) {
+                    let pHtml = '';
+                    this.data.products.forEach(p => {
+                        pHtml += `
+                            <tr>
+                                <td>#${p.id}</td>
+                                <td>${p.name}</td>
+                                <td>${p.artisanName}</td>
+                                <td>S/ ${p.price.toFixed(2)}</td>
+                                <td>
+                                    <button class="btn btn-outline" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="app.openProductForm(${p.id})">Editar</button>
+                                    <button class="btn" style="background:var(--naranja-tropical); color:white; padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="app.deleteProduct(${p.id})">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    pBody.innerHTML = pHtml || '<tr><td colspan="5" style="text-align:center;">No hay productos</td></tr>';
+                }
+
+                // Tabla Pedidos
+                const oBody = document.getElementById('admin-orders-table');
+                let oHtml = '';
+                [...this.data.orders].reverse().slice(0, 10).forEach(o => {
+                    oHtml += `
+                        <tr>
+                            <td>${o.id}</td>
+                            <td>${o.userName}</td>
+                            <td>${o.date}</td>
+                            <td>S/ ${o.total.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                oBody.innerHTML = oHtml || '<tr><td colspan="4">No hay pedidos</td></tr>';
+
+                // Tabla Usuarios
+                const uBody = document.getElementById('admin-users-table');
+                let uHtml = '';
+                this.data.users.forEach(u => {
+                    uHtml += `
+                        <tr>
+                            <td>${u.name}</td>
+                            <td><span style="background:#eee; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.8rem;">${u.role}</span></td>
+                            <td>${u.email}</td>
+                        </tr>
+                    `;
+                });
+                uBody.innerHTML = uHtml;
+            }
+        };
+
+        // Iniciar la app cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
